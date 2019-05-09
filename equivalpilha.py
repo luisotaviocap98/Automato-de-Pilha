@@ -7,7 +7,7 @@ fp = open(sys.argv[1], "r") #abre em modo de leitura o arquivo com a definicao d
     input_alphabet   = lines[0].split()
     stack_alphabet   = lines[1]
     epsilon          = lines[2]
-    z                = lines[3].split()
+    z_inicial_pilha  = lines[3].split()
     states           = lines[4]
     initial_state    = lines[5].split()
     final_states     = lines[6]                     
@@ -27,14 +27,16 @@ fp = open(sys.argv[1], "r") #abre em modo de leitura o arquivo com a definicao d
     '''transitions.append('p0 E X0 Z0 X0')'''
 
 '''def pilhavazia():'''
-'''criar estado novo
-adicionar loop no novo estado pra esvaziar pilha  E,any /E
-para todos estados finais gerar transicoes  E,any /E para o estado novo
+'''criar estado inicial novo    states.append('p0')
+criar estado final novo    states.append('pf')
+adicionar loop no novo estado final pra esvaziar pilha  E,any /E      transitions.append('pf E any E')
+para todos estados finais gerar transicoes  E,any /E para o estado novo for i in finalstates transitions.append('i E any E')
 escrever isso num novo arquivo'''
 
 
 '''def estadoaceitacao():'''
-'''criar estado novo
-para todos estados gerar transicoes E, X0 /E para o estado novo
-definir estado novo como estado de aceitacao
+'''criar estado inicial novo        states.append('p0')
+criar estado final novo    states.append('pf')
+para todos estados gerar transicoes E, X0 /E para o estado final novo   for i in states transitions.append('i E X0 E')
+definir estado final novo como estado de aceitacao    finalstates.append(pf)
 escrever isso num novo arquivo'''
