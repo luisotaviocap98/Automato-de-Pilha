@@ -22,12 +22,19 @@ fp = open(sys.argv[1], "r") #abre em modo de leitura o arquivo com a definicao d
         ''' transforma para aceitar por estado de aceitacao'''
         '''estadoaceitacao()'''
 
-    ''' criar novo estado que empilha X0'''
+    ''' criar novo estado inicial que empilha X0'''
     ''' p0, E, X0 / Z0 X0 '''
-    '''transitions.append()'''
+    '''transitions.append('p0 E X0 Z0 X0')'''
 
 '''def pilhavazia():'''
-''' para cada estado de aceitacao criar transicao E,any /E para um estado que esvazia a pilha com loop E,any /E '''
+'''criar estado novo
+adicionar loop no novo estado pra esvaziar pilha  E,any /E
+para todos estados finais gerar transicoes  E,any /E para o estado novo
+escrever isso num novo arquivo'''
+
 
 '''def estadoaceitacao():'''
-''' para todos estados existentes criar transicoes E, X0 /E para um novo estado de aceitacao '''
+'''criar estado novo
+para todos estados gerar transicoes E, X0 /E para o estado novo
+definir estado novo como estado de aceitacao
+escrever isso num novo arquivo'''
