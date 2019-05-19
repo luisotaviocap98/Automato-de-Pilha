@@ -66,7 +66,7 @@ class Convert:
     def estadoaceitacao(self):        
         '''para todos estados gerar transicoes E, X0 /E para o estado final novo '''
         for i in self.states:
-            self.transitions.append(i,'E X0 E')
+            self.transitions.append(i,'E X0 pf E')
         '''definir estado final novo como estado de aceitacao'''
         self.final_states.append('pf')
         '''escrever isso num novo arquivo'''
@@ -80,8 +80,10 @@ class Convert:
         self.states.append('pf')
         '''definir novo zinicial como X0'''       
         self.z_inicial_pilha = 'X0'
+        '''descobrir primeiro estado do automatoA'''
+        x = self.states[1]
         '''empilhar X0 e Z0'''
-        transitions.append('p0 E X0 Z0 X0') 
+        self.transitions.append('p0 E X0 Z0',x, 'X0') 
 
         '''significa que existe estado de aceitacao'''
         if len(self.final_states)>0:
