@@ -53,23 +53,17 @@ class Convert:
         arq.write(self.transitions)
         arq.close()    
 
-    def pilhavazia(self):
-        '''criar estado final novo'''
-        self.states.append('pf')
+    def pilhavazia(self):        
         '''adicionar loop no novo estado final pra esvaziar pilha  E,any /E  '''
-        self.transitions.append('pf E any E')
-        '''para todos estados finais gerar transicoes  E,any /E para o estado novo'''
+        self.transitions.append('pf E any pf E')
+        '''para todos estados finais gerar transicoes  E,any /E para o estado final novo'''
         for i in self.final_states:
-            self.transitions.append(i ,'E any E')
+            self.transitions.append(i ,'E any pf E')
         '''escrever isso num novo arquivo'''
         self.escreveArq()
 
 
-    def estadoaceitacao(self):
-        '''criar estado inicial novo'''
-        self.states.append('p0')
-        '''criar estado final novo'''
-        self.states.append('pf')
+    def estadoaceitacao(self):        
         '''para todos estados gerar transicoes E, X0 /E para o estado final novo '''
         for i in self.states:
             self.transitions.append(i,'E X0 E')
@@ -79,12 +73,15 @@ class Convert:
         self.escreveArq()
 
     def Equivalencia(self):
-        ''' criar novo estado inicial que empilha X0'''
-        ''' p0, E, X0 / Z0 X0 '''
-        '''criar estado inicial novo    states.append('p0')'''
-        '''definir novo zinicial como X0
-        empilhar X0 e Z0'''
-        '''transitions.append('p0 E X0 Z0 X0')'''
+    
+        '''criar estado inicial novo'''
+        self.states.append('p0')
+        '''criar estado final novo'''
+        self.states.append('pf')
+        '''definir novo zinicial como X0'''       
+        self.z_inicial_pilha = 'X0'
+        '''empilhar X0 e Z0'''
+        transitions.append('p0 E X0 Z0 X0') 
 
         '''significa que existe estado de aceitacao'''
         if len(self.final_states)>0:
@@ -98,4 +95,3 @@ if __name__ == "__main__":
     p = Convert()
     p.abreArq()
     p.Equivalencia()
-    p.escreveArq()
