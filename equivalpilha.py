@@ -39,11 +39,13 @@ class Convert:
         arq = open('Out.txt','w+')
         for i in self.input_alphabet:
             arq.write(i)
-            arq.write(' ')
+            if (self.input_alphabet.index(i)<(len(self.input_alphabet)-1)):
+                arq.write(' ')
         arq.write('\n')
         for i in self.stack_alphabet:
             arq.write(i)
-            arq.write(' ')
+            if (self.stack_alphabet.index(i)<(len(self.stack_alphabet)-1)):
+                arq.write(' ')
         arq.write('\n')
         arq.write(self.epsilon)
         arq.write('\n')
@@ -51,22 +53,29 @@ class Convert:
         arq.write('\n')
         for i in self.states:
             arq.write(i)
-            arq.write(' ') 
+            if (self.states.index(i)<(len(self.states)-1)):
+                arq.write(' ')
         arq.write('\n')
         arq.write(self.initial_state) 
         arq.write('\n')
         for i in self.final_states:
             arq.write(i)
-            arq.write(' ')    
+            if (self.final_states.index(i)<(len(self.final_states)-1)):
+                arq.write(' ')    
         arq.write('\n')
         for i in self.transitions:
+            print(self.transitions)
             for j in i:
                 arq.write(j)
-                arq.write(' ')
-            arq.write('\n')
+                if (i.index(j)<(len(i)-1)):
+                    arq.write(' ')
+            print()
+            if (self.transitions.index(i)<(len(self.transitions)-1)):
+                arq.write('\n')
         arq.close()    
 
-    def pilhavazia(self):        
+    def pilhavazia(self): 
+        t =list()       
         #adicionar loop no novo estado final pra esvaziar pilha  E,any /E 
         self.transitions.append('pf {} any pf {}'.format(self.epsilon,self.epsilon).split())
         #para todos estados finais gerar transicoes  E,any /E para o estado final novo
@@ -95,6 +104,8 @@ class Convert:
         #definir novo zinicial como X0       
         zz = self.z_inicial_pilha
         self.z_inicial_pilha = 'X0'
+        #adicionar X0 como parte do alfabeto da pilha
+        self.stack_alphabet.append('X0')
         #descobrir primeiro estado do automatoA
         x = self.states[0]
         #empilhar X0 e Z0
@@ -102,10 +113,10 @@ class Convert:
 
         #significa que existe estado de aceitacao
         if len(self.final_states)>0:
-            ''' transforma para aceitar por pilha vazia'''
+            #transforma para aceitar por pilha vazia
             self.pilhavazia()
         else:
-            ''' transforma para aceitar por estado de aceitacao'''
+            #transforma para aceitar por estado de aceitacao
             self.estadoaceitacao()
 
 if __name__ == "__main__":
