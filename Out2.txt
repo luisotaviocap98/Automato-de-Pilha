@@ -1,11 +1,11 @@
 PDA
 a b
-Z a aZ aa x e
+Z a aZ aa x
 E
-e
-p0 q1 pf c2 z8 l0 m5
-l0
-pf m5
+x
+p0 q1 pf c2 z8
+c2
+pf
 p0 a Z q1 aZ
 q1 E E pf E 
 q1 a a q1 aa
@@ -17,9 +17,3 @@ z8 E x z8 E
 pf E Z z8 E 
 pf E a z8 E 
 pf E x z8 E 
-l0 E e c2 xe
-p0 E e m5 E 
-q1 E e m5 E 
-pf E e m5 E 
-c2 E e m5 E 
-z8 E e m5 E 

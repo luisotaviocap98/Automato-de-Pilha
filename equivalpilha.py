@@ -11,6 +11,9 @@ class Convert:
         self.initial_state =  list()
         self.final_states =  list()
         self.transitions =  list()
+        self.pf = "pf"
+        self.p0 = "p0"
+        self.x0 = "x"
 
     def abreArq(self):    
         #abre em modo de leitura o arquivo com a definicao do automato de pilha
@@ -95,12 +98,12 @@ class Convert:
                     t.append(j)   
         #adicionar loop no novo estado final pra esvaziar pilha  E,any /E
         for i in t: 
-            self.transitions.append('pf {} {} pf {}'.format(self.epsilon,i,self.epsilon).split())
+            self.transitions.append('{} {} {} {} {}'.format(self.pf,self.epsilon,i,self.pf,self.epsilon).split())
         #para todos estados finais gerar transicoes  E,any /E para o estado final novo
         for i in self.final_states:
-            if i != 'pf':
+            if i != self.pf:
                 for j in t:
-                    self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,j,self.epsilon).split())
+                    self.transitions.append('{} {} {} {} {}'.format(i,self.epsilon,j,self.pf,self.epsilon).split())
         #escrever isso em um novo arquivo
         self.escreveArq()
 
@@ -108,10 +111,10 @@ class Convert:
     def estadoaceitacao(self):        
         #para todos estados gerar transicoes E, X0 /E para o estado final novo
         for i in self.states: 
-            if ((i != self.initial_state) and (i!= 'pf')):
-                self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,self.z_inicial_pilha,self.epsilon).split())
+            if ((i != self.initial_state) and (i!= self.pf)):
+                self.transitions.append('{} {} {} {} {}'.format(i,self.epsilon,self.z_inicial_pilha,self.pf,self.epsilon).split())
         #definir estado final novo como estado de aceitacao
-        self.final_states.append('pf')
+        self.final_states.append(self.pf)
         #escrever isso em um novo arquivo
         self.escreveArq()
 
@@ -124,34 +127,32 @@ class Convert:
         for i in alfab:
             for j in range(0,10):
                 st.append('{}{}'.format(i,j))
-        
+        st.append("pf")
         #criar estado inicial novo
-        p0 = input('digite o novo estado inicial: ')
         pp = True
         while(pp == True):
-            if(p0 in self.states):
-                print('P0 {} ja existe, outro nome sera gerado'.format(p0))
+            if(self.p0 in self.states):
+                print('P0 {} ja existe, outro nome sera gerado'.format(self.p0))
                 pp =True
-                p0 = random.choice(st)
-            elif(p0 not in self.states):
+                self.p0 = random.choice(st)
+            elif(self.p0 not in self.states):
                 pp = False
-                st.pop(st.index(p0))
+                st.pop(st.index(self.p0))
 
-        self.states.append(p0)
-        self.initial_state = p0
+        self.states.append(self.p0)
+        self.initial_state = self.p0
         #criar estado final novo
-        pf = input('digite o novo estado final: ')
         pp = True
         while(pp == True):
-            if(pf in self.states):
-                print('PF {} ja existe, outro nome sera gerado'.format(pf))
+            if(self.pf in self.states):
+                print('PF {} ja existe, outro nome sera gerado'.format(self.pf))
                 pp =True
-                pf = random.choice(st)
-            elif(pf not in self.states):
+                self.pf = random.choice(st)
+            elif(self.pf not in self.states):
                 pp = False
-                st.pop(st.index(pf))
+                st.pop(st.index(self.pf))
  
-        self.states.append(pf)
+        self.states.append(self.pf)
         #definir novo zinicial como X0
         #reconhecer todas letras que podem estar no topo da pilha
         t = list()
@@ -160,35 +161,41 @@ class Convert:
                 if(j not in t):
                     t.append(j)  
 
-        x0 = input('digite o novo simbolo inicial: ')
         pp = True
         while(pp == True):
-            if(x0 in t):
-                print('x0 {} ja existe, outro nome sera gerado'.format(x0))
+            if(self.x0 in t):
+                print('x0 {} ja existe, outro nome sera gerado'.format(self.x0))
                 pp =True
-                x0 = random.choice(alfab)
-            elif(x0 not in t):
+                self.x0 = random.choice(alfab)
+            elif(self.x0 not in t):
                 pp = False
-                alfab.pop(alfab.index(x0))
+                alfab.pop(alfab.index(self.x0))
 
         zz = self.z_inicial_pilha
-        self.z_inicial_pilha = x0
+        self.z_inicial_pilha = self.x0
         #adicionar X0 como parte do alfabeto da pilha
-        self.stack_alphabet.append(x0)  
+        self.stack_alphabet.append(self.x0)  
         #empilhar X0 e Z0
         self.transitions.append('{} {} {} {} {}{}'.format(self.initial_state,self.epsilon,self.z_inicial_pilha,x,zz,self.z_inicial_pilha).split()) 
 
         #significa que existe estado de aceitacao
-        if len(self.final_states)>0:
+        if(sys.argv[2]=="-p"):
             #transforma para aceitar por pilha vazia
             self.pilhavazia()
+            print("Arquivo convertido com sucesso, agora aceita por pilha vazia")
         else:
             #transforma para aceitar por estado de aceitacao
             self.estadoaceitacao()
+            print("Arquivo convertido com sucesso, agora aceita por estado de aceitação")
+        exit()
 
 '''PS: modificar maneiras de nomear p0, pf, X. E deixar o usuario definir qual vai ser o metodo de aceitacao'''
 
 if __name__ == "__main__":
-    p = Convert()
-    p.abreArq()
-    p.Equivalencia()
+    if(sys.argv[2] == "-p" or sys.argv[2] == "-e"):
+        p = Convert()
+        p.abreArq()
+        p.Equivalencia()
+    print("Usagem incorreta, utilize \"-p\" para transformar para pilha vazia, ou \"-e\" para transformar para estado de aceitação")
+    exit()
+    
