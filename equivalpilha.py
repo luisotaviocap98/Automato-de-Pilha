@@ -1,4 +1,6 @@
 import sys
+import string
+import random
 class Convert:
     def __init__(self):
         self.input_alphabet = list()
@@ -116,16 +118,63 @@ class Convert:
     def Equivalencia(self):
         #descobrir primeiro estado do automatoA
         x = self.initial_state
+        #gerando varias combinacoes de possiveis nomes de estados
+        alfab = list(string.ascii_lowercase)
+        st =list()
+        for i in alfab:
+            for j in range(0,10):
+                st.append('{}{}'.format(i,j))
+        
         #criar estado inicial novo
-        self.states.append('p0')
-        self.initial_state = 'p0'
+        p0 = input('digite o novo estado inicial: ')
+        pp = True
+        while(pp == True):
+            if(p0 in self.states):
+                print('P0 {} ja existe, outro nome sera gerado'.format(p0))
+                pp =True
+                p0 = random.choice(st)
+            elif(p0 not in self.states):
+                pp = False
+                st.pop(st.index(p0))
+
+        self.states.append(p0)
+        self.initial_state = p0
         #criar estado final novo
-        self.states.append('pf')
-        #definir novo zinicial como X0       
+        pf = input('digite o novo estado final: ')
+        pp = True
+        while(pp == True):
+            if(pf in self.states):
+                print('PF {} ja existe, outro nome sera gerado'.format(pf))
+                pp =True
+                pf = random.choice(st)
+            elif(pf not in self.states):
+                pp = False
+                st.pop(st.index(pf))
+ 
+        self.states.append(pf)
+        #definir novo zinicial como X0
+        #reconhecer todas letras que podem estar no topo da pilha
+        t = list()
+        for i in self.stack_alphabet:
+            for j in i:
+                if(j not in t):
+                    t.append(j)  
+
+        x0 = input('digite o novo simbolo inicial: ')
+        pp = True
+        while(pp == True):
+            if(x0 in t):
+                print('x0 {} ja existe, outro nome sera gerado'.format(x0))
+                pp =True
+                x0 = random.choice(alfab)
+            elif(x0 not in t):
+                pp = False
+                alfab.pop(alfab.index(x0))
+
         zz = self.z_inicial_pilha
-        self.z_inicial_pilha = 'X'
+        self.z_inicial_pilha = x0
         #adicionar X0 como parte do alfabeto da pilha
-        self.stack_alphabet.append('X')  
+        self.stack_alphabet.append(x0)  
         #empilhar X0 e Z0
         self.transitions.append('{} {} {} {} {}{}'.format(self.initial_state,self.epsilon,self.z_inicial_pilha,x,zz,self.z_inicial_pilha).split()) 
 
@@ -136,6 +185,8 @@ class Convert:
         else:
             #transforma para aceitar por estado de aceitacao
             self.estadoaceitacao()
+
+'''PS: modificar maneiras de nomear p0, pf, X. E deixar o usuario definir qual vai ser o metodo de aceitacao'''
 
 if __name__ == "__main__":
     p = Convert()
