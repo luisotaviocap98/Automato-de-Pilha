@@ -5,8 +5,8 @@ O codigo jflap-pda2utfpr.py faz a conversão do automato de pilha, criado no JFL
 
 Passo a passo:
 
-*python jflap-pda2utfpr.py (arquivo JFLAP) ab.txt 
+*python jflap-pda2utfpr.py "arquivo JFLAP" ab.txt
 
-*python equivalpilha.py ab.txt 
+*python equivalpilha.py ab.txt -modo (-e para estado de aceitação ou -p para pilha vazia)
 
-*python fla/main.py Out.txt (palavra de entrada)
+*python fla/main.py Out.txt "palavra de entrada"
