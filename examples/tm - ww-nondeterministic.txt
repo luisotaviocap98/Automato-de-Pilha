@@ -1,0 +1,31 @@
+TM
+A B X Y a b
+A B C X Y a b
+C
+0 1 2 3 4 5
+0
+5
+1
+0 1 A X R
+0 1 a X R
+0 2 B X R
+0 2 b X R
+0 4 Y Y R
+1 1 Y Y R
+1 1 B B R
+1 1 a A R
+1 1 A A R
+1 1 b B R
+1 3 a Y L
+2 2 b B R
+2 2 Y Y R
+2 2 A A R
+2 2 a A R
+2 2 B B R
+2 3 b Y L
+3 0 X X R
+3 3 Y Y L
+3 3 B B L
+3 3 A A L
+4 4 Y Y R
+4 5 C C R
