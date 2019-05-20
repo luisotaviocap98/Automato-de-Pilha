@@ -38,6 +38,9 @@ class Convert:
     
     def escreveArq(self):
         arq = open('Out.txt','w+')
+        #escrevendo o tipo de automato
+        arq.write('PDA')
+        arq.write('\n')
         #escrevendo o alfabeto de entrada
         for i in self.input_alphabet:
             arq.write(i)
@@ -93,8 +96,9 @@ class Convert:
             self.transitions.append('pf {} {} pf {}'.format(self.epsilon,i,self.epsilon).split())
         #para todos estados finais gerar transicoes  E,any /E para o estado final novo
         for i in self.final_states:
-            for j in t:
-                self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,j,self.epsilon).split())
+            if i != 'pf':
+                for j in t:
+                    self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,j,self.epsilon).split())
         #escrever isso em um novo arquivo
         self.escreveArq()
 
@@ -102,7 +106,8 @@ class Convert:
     def estadoaceitacao(self):        
         #para todos estados gerar transicoes E, X0 /E para o estado final novo
         for i in self.states: 
-            self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,self.z_inicial_pilha,self.epsilon).split())
+            if ((i != self.initial_state) and (i!= 'pf')):
+                self.transitions.append('{} {} {} pf {}'.format(i,self.epsilon,self.z_inicial_pilha,self.epsilon).split())
         #definir estado final novo como estado de aceitacao
         self.final_states.append('pf')
         #escrever isso em um novo arquivo

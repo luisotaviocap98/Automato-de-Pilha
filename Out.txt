@@ -1,17 +1,19 @@
+PDA
 a b
-Z a aZ X
+Z a aZ aa X
 E
 X
 q0 q1 q2 p0 pf
 p0
-pf
+q2
 q0 a Z q1 aZ
 q1 E E q2 E 
-q1 a aZ q1 E
+q1 a a q1 aa
 q2 b a q2 E
 p0 E X q0 ZX
-q0 E X pf E 
-q1 E X pf E 
-q2 E X pf E 
-p0 E X pf E 
+pf E Z pf E 
+pf E a pf E 
 pf E X pf E 
+q2 E Z pf E 
+q2 E a pf E 
+q2 E X pf E 
