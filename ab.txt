@@ -1,12 +1,13 @@
-PDA
+P D A
 a b
 Z a aZ aa
 E
 Z
-p0 q1 pf
+p0 q1 q2 q3
 p0
-pf
+q3
 p0 a Z q1 aZ
-q1 E E pf E
+q1 E E q2 E
 q1 a a q1 aa
-pf b a pf E
+q2 E Z q3 E
+q2 b a q2 E

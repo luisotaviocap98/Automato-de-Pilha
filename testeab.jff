@@ -14,6 +14,10 @@
 		<state id="2" name="q2">
 			<x>397.0</x>
 			<y>118.0</y>
+		</state>
+		<state id="3" name="q3">
+			<x>518.0</x>
+			<y>133.0</y>
 			<final/>
 		</state>
 		<!--The list of transitions.-->
@@ -25,6 +29,13 @@
 			<push>aa</push>
 		</transition>
 		<transition>
+			<from>1</from>
+			<to>2</to>
+			<read/>
+			<pop/>
+			<push/>
+		</transition>
+		<transition>
 			<from>2</from>
 			<to>2</to>
 			<read>b</read>
@@ -32,10 +43,10 @@
 			<push/>
 		</transition>
 		<transition>
-			<from>1</from>
-			<to>2</to>
+			<from>2</from>
+			<to>3</to>
 			<read/>
-			<pop/>
+			<pop>Z</pop>
 			<push/>
 		</transition>
 		<transition>
